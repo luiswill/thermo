@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+
+  </head>
+  <body>
+
+    <% include templates/header.ejs %>
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+
+
+    Stadt : <%= weather.name %> <br/>
+    Temp : <%= weather.main.temp %> °C.
+
+    <h1>Home</h1>
+    <%= home.temp %> °C. <br/>
+
+
+
+
+
+    <form method="post" action="/">
+      <input type="submit" value="Increase Temp">
+    </form>
+
+
+
+
+    City <input type="text"  id="city" >
+    <input type="button" name="chercher" onclick="findWeather()">
+
+
+
+
+  </body>yc
+</html>
