@@ -5,37 +5,51 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
 
   </head>
-  <body>
+
 
     <% include templates/header.ejs %>
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
 
 
-
-
     <h1>Home</h1>
 
 
+    <br/>
+    <br/>
+
+    <div id="getTemp">
+
+        <a href="/get-data" id="loadData">Refresh Temperature</a>
+    </div>
 
 
+      <div id="actualTemp">
+        <%= home
+        %> °C.
+      </div>
 
-    <h1>Insert</h1>
-    <form method="post" action="/insert">
-      New temp : <input type="text" name="newTemp" >
-      <input type="submit" >
+    <div id="updateTemp">
+        <h1>Update</h1>
+        <form method="post" action="/update">
+          New temp : <input type="number" name="changeTemp" >
+            <button type="submit">UPDATE</button>
+        </form>
+
+    </div>
+
+    <br/><br/>
+
+      <div id="weather">
+    <form action="/weather" method="post">
+        City <input type="text" name="city" >
+        <button type="submit">Forecast</button>
     </form>
 
-    <br/>
-    <br/>
-    <h1>GET</h1>
-    <a href="/get-data">LOAD DATA</a>
-
-    <%= home
-    %> °C. <br/>
-
-    City <input type="text"  id="city" >
-    <input type="button" name="chercher" onclick="findWeather()">
+          <% if(this.tempOutside){ %>
+              <%= tempOutside %>
+          <%}%>
+      </div>
 
 
 

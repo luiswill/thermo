@@ -6,3 +6,25 @@ body {
 a {
   color: #00B7FF;
 }
+
+#loadData{
+  padding: 2em;
+  background-color: #8ee7d7;
+  font-size: 1em;
+  color: black;
+  border-radius: 3px;
+  text-decoration: none;
+  border: 1px solid black;
+}
+
+#getTemp{
+  background-color: #40ca50;
+}
+
+#getTemp, #updateTemp{
+  padding: 3em;
+}
+
+#actualTemp {
+  font-size: 4em;
+}

@@ -18,26 +18,9 @@ var users = require('./routes/users');
 var app = express(); //initialize express
 
 
-var request = require('request');
+
 
 /* GET home page. */
-
-var cityName = "London";
-// document.getElementById("city").value()
-
-var key = "1c12a784ad25f95111035d8132662635";
-var url =  "http://api.openweathermap.org/data/2.5/weather?q=";
-var link = url + cityName + "&APPID=" + key + "&units=metric";
-
-request({
-    url: link,
-    json: true
-}, function (error, response, body) {
-
-    if (!error && response.statusCode === 200) {
-        app.locals.weather = body;// Print the json response
-    }
-});
 
 
 // ASSERT FEHLER MACHEN !
