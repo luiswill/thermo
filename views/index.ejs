@@ -12,22 +12,27 @@
     <p>Welcome to <%= title %></p>
 
 
-    Stadt : <%= weather.name %> <br/>
-    Temp : <%= weather.main.temp %> °C.
+
 
     <h1>Home</h1>
-    <%= home.temp %> °C. <br/>
 
 
 
 
 
-    <form method="post" action="/">
-      <input type="submit" value="Increase Temp">
+    <h1>Insert</h1>
+    <form method="post" action="/insert">
+      New temp : <input type="text" name="newTemp" >
+      <input type="submit" >
     </form>
 
+    <br/>
+    <br/>
+    <h1>GET</h1>
+    <a href="/get-data">LOAD DATA</a>
 
-
+    <%= home
+    %> °C. <br/>
 
     City <input type="text"  id="city" >
     <input type="button" name="chercher" onclick="findWeather()">
@@ -35,5 +40,5 @@
 
 
 
-  </body>yc
+  </body>
 </html>
