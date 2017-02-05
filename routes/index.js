@@ -5,6 +5,9 @@ var bodyParser = require("body-parser"); // body-parser extract data from the <f
 var mongo = require('mongodb').MongoClient;
 var objectID = require('mongodb').ObjectID;
 var assert = require('assert');
+var events = require('events');
+var eventEmitter = new events.EventEmitter();
+
 
 var idHome = '58946479f12654d263d62844'; //id of our home, doesn't change, it's a constant
 var url = 'mongodb://localhost:27017/test';
@@ -16,8 +19,8 @@ module.exports = router;
 /* GET home page. */
 router.get('/', function(req, res, next){
     var weather = getTempOutside();
-    console.log("temp main" + weather);
-    res.render('index', {title: "House Temperature", home: 0, tempOutside: weather});
+    console.log("temp main " + weather);
+    res.render('index', {title: "House", home: temp, tempOutside: weather});
 });
 
 
@@ -25,18 +28,19 @@ router.get('/', function(req, res, next){
 router.get('/get-data', function(req, res, next) {
     var resultArray = [];
     mongo.connect(url, function(err, db){
-        var cursor = db.collection("data").find();
-
-        cursor.forEach(function(doc, err){
-                assert.equal(null, err);
-                resultArray.push(doc);
-            }, function(){
-                console.log(resultArray[0].temp);
+		db.collection("data").findOne({"_id": objectID(idHome)}, function(err, doc) {
+			if (doc) {
+				resultArray.push(doc);
+				temp = resultArray[0].temp;
+				console.log(temp);
                 db.close();
-                res.render('index', {home: resultArray[0].temp, title: "House"});
-            }
-        );
-    })
+                res.render('index', {home: temp, title: "House"});
+			}
+			else{
+				console.log("db object \"home\" not found");
+			}
+		});
+    });
 });
 
 
@@ -51,6 +55,7 @@ router.post('/update', function(req, res, next){
             console.log("Temperature updated");
             temp = item.temp;
             db.close();
+			res.render('index', {home: temp, title: "House"});
             })
     })
 });
