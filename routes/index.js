@@ -12,6 +12,7 @@ weatherAPI.setCity('London');
 var idHome = '58946479f12654d263d62844'; //id of our home, doesn't change, it's a constant
 var url = 'mongodb://localhost:27017/test';
 var temp = 0;
+var tempOs = 0;
 router.use(bodyParser.urlencoded({extended: true})); // otherwise get the error : "bodyparser is outdated"
 
 module.exports = router;
@@ -19,9 +20,10 @@ module.exports = router;
 /* GET home page. */
 router.get('/', function(req, res, next){
     var final = 0;
-    weatherAPI.getTemperature(function(err, temp){
-        console.log(temp);
-        res.render('index', {title: "House Temperature", tempOutside: temp});
+    weatherAPI.getTemperature(function(err, temprslt){
+		tempOs = temprslt;
+        console.log(tempOs);
+        res.render('index', {title: "House Temperature", home: temp, tempOutside: tempOs});
     });
 
 
@@ -32,20 +34,19 @@ router.get('/', function(req, res, next){
 router.get('/get-data', function(req, res, next) {
     var resultArray = [];
     mongo.connect(url, function(err, db){
-        var cursor = db.collection("data").find();
-
-        cursor.forEach(function(doc, err){
-                assert.equal(null, err);
-                resultArray.push(doc);
-            }, function(){
-                console.log(resultArray[0].temp);
-            res.render('index', {home: resultArray[0].temp, title: "House"});
+		db.collection("data").findOne({"_id": objectID(idHome)}, function(err, doc) {
+			if (doc) {
+				resultArray.push(doc);
+				temp = resultArray[0].temp
+				console.log(temp);
                 db.close();
-
-            }
-        );
-
-    })
+                res.render('index', {home: temp, title: "House", tempOutside: tempOs});
+			}
+			else{
+				console.log("db collection \"data\" not found");
+			}
+		});
+    });
 });
 
 
@@ -60,6 +61,7 @@ router.post('/update', function(req, res, next){
             console.log("Temperature updated");
             temp = item.temp;
             db.close();
+			res.render('index', {home: temp, title: "House", tempOutside: tempOs});
             })
     })
 });

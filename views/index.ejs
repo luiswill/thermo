@@ -25,7 +25,7 @@
 
 
       <div id="actualTemp">
-        <%=
+        <%= home
         %> °C.
       </div>
 
@@ -40,17 +40,7 @@
 
     <br/><br/>
 
-      <div id="weather">
-    <form action="/weather" method="post">
-        City <input type="text" name="city" >
-        <button type="submit">Forecast</button>
-    </form>
-
-          <% if(this.tempOutside){ %>
-              <%= tempOutside %>
-          <%}%>
-      </div>
-
+        Temp outside: <%= tempOutside %>
 
 
 
