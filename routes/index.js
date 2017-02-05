@@ -11,8 +11,7 @@ weatherAPI.setCity('London');
 
 var idHome = '58946479f12654d263d62844'; //id of our home, doesn't change, it's a constant
 var url = 'mongodb://localhost:27017/test';
-var temp = 0;
-var tempOs = 0;
+
 router.use(bodyParser.urlencoded({extended: true})); // otherwise get the error : "bodyparser is outdated"
 
 module.exports = router;
@@ -20,12 +19,10 @@ module.exports = router;
 /* GET home page. */
 router.get('/', function(req, res, next){
     var final = 0;
-    weatherAPI.getTemperature(function(err, temprslt){
-		tempOs = temprslt;
-        console.log(tempOs);
+    weatherAPI.getAllWeather(function(err, weatherJSON){
         refresh(function(err, temp){
-            res.render('index', {title: "House Temperature", home: temp, tempOutside: tempOs});
-        })
+            res.render('index', {title: "House Temperature", home: temp, weather: weatherJSON});
+        });
 
     });
 });
@@ -34,6 +31,8 @@ router.get('/', function(req, res, next){
 /* GET temp from server */
 router.get('/get-data', function(req, res, next) {
     refresh(function(err, data){
+
+
         res.render('index', {title: "House", home: data, tempOutside: tempOs});
     })
 });
@@ -42,9 +41,7 @@ function refresh(callThisFunction){
     mongo.connect(url, function(err, db){
         db.collection("data").findOne({"_id": objectID(idHome)}, function(err, doc) {
             if (doc) {
-                temp = doc.temp;
-                console.log(temp);
-                callThisFunction(null, temp);
+                callThisFunction(null, doc.temp);
             }
             else{
                 console.log("db collection \"data\" not found");
@@ -73,4 +70,7 @@ router.post('/update', function(req, res, next){
 
 
 /* GET weather forecast from city */
+function getWeather(callback) {
 
+
+}
