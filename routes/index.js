@@ -5,6 +5,9 @@ var bodyParser = require("body-parser"); // body-parser extract data from the <f
 var mongo = require('mongodb').MongoClient;
 var objectID = require('mongodb').ObjectID;
 var assert = require('assert');
+var weatherAPI = require('openweather-apis');
+weatherAPI.setAPPID('1c12a784ad25f95111035d8132662635');
+weatherAPI.setCity('London');
 
 var idHome = '58946479f12654d263d62844'; //id of our home, doesn't change, it's a constant
 var url = 'mongodb://localhost:27017/test';
@@ -15,9 +18,13 @@ module.exports = router;
 
 /* GET home page. */
 router.get('/', function(req, res, next){
-    var weather = getTempOutside();
-    console.log("temp main" + weather);
-    res.render('index', {title: "House Temperature", home: 0, tempOutside: weather});
+    var final = 0;
+    weatherAPI.getTemperature(function(err, temp){
+        console.log(temp);
+        res.render('index', {title: "House Temperature", tempOutside: temp});
+    });
+
+
 });
 
 
@@ -32,10 +39,12 @@ router.get('/get-data', function(req, res, next) {
                 resultArray.push(doc);
             }, function(){
                 console.log(resultArray[0].temp);
+            res.render('index', {home: resultArray[0].temp, title: "House"});
                 db.close();
-                res.render('index', {home: resultArray[0].temp, title: "House"});
+
             }
         );
+
     })
 });
 
@@ -57,52 +66,4 @@ router.post('/update', function(req, res, next){
 
 
 /* GET weather forecast from city */
-
-router.post('/weather', function(req, res, next){
-   var item = {city: req.body.city};
-   var key = "1c12a784ad25f95111035d8132662635";
-   var url =  "http://api.openweathermap.org/data/2.5/weather?q=";
-   var link = url + item.city + "&APPID=" + key + "&units=metric";
-   console.log(item.city);
-    request({
-        url: link,
-        json: true
-    }, function (error, response, result) {
-
-        if (!error && response.statusCode === 200) {
-            // app.locals.weather = body;// Print the json response
-            console.log(result.main.temp);
-            res.render('index', {title: "House", weather: result.main, home: temp});
-        }
-    });
-
-});
-
-
-
-function getTempOutside(){
-    var item = {"city": "Metz"};
-    var key = "1c12a784ad25f95111035d8132662635";
-    var url =  "http://api.openweathermap.org/data/2.5/weather?q=";
-    var link = url + item.city + "&APPID=" + key + "&units=metric";
-
-    request({
-        url: link,
-        json: true
-    }, function (error, response, result) {
-
-        if (!error && response.statusCode === 200) {
-            // app.locals.weather = body;// Print the json response
-            console.log("weather " + result.main.temp);
-             return result.main.temp;
-        }
-    });
-}
-
-
-
-
-
-
-
 
