@@ -23,27 +23,36 @@ router.get('/', function(req, res, next){
     weatherAPI.getTemperature(function(err, temprslt){
 		tempOs = temprslt;
         console.log(tempOs);
-        res.render('index', {title: "House Temperature", home: temp, tempOutside: tempOs});
+        refresh(function(err, temp){
+            res.render('index', {title: "House Temperature", home: temp, tempOutside: tempOs});
+        })
+
     });
 });
 
 
 /* GET temp from server */
 router.get('/get-data', function(req, res, next) {
-    mongo.connect(url, function(err, db){
-		db.collection("data").findOne({"_id": objectID(idHome)}, function(err, doc) {
-			if (doc) {
-				temp = doc.temp
-				console.log(temp);
-                db.close();
-                res.render('index', {home: temp, title: "House", tempOutside: tempOs});
-			}
-			else{
-				console.log("db collection \"data\" not found");
-			}
-		});
-    });
+    refresh(function(err, data){
+        res.render('index', {title: "House", home: data, tempOutside: tempOs});
+    })
 });
+
+function refresh(callThisFunction){
+    mongo.connect(url, function(err, db){
+        db.collection("data").findOne({"_id": objectID(idHome)}, function(err, doc) {
+            if (doc) {
+                temp = doc.temp;
+                console.log(temp);
+                callThisFunction(null, temp);
+            }
+            else{
+                console.log("db collection \"data\" not found");
+            }
+            db.close();
+        });
+    });
+}
 
 
 /* UPDATE DATA from client to server */
