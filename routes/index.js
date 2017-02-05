@@ -25,19 +25,15 @@ router.get('/', function(req, res, next){
         console.log(tempOs);
         res.render('index', {title: "House Temperature", home: temp, tempOutside: tempOs});
     });
-
-
 });
 
 
 /* GET temp from server */
 router.get('/get-data', function(req, res, next) {
-    var resultArray = [];
     mongo.connect(url, function(err, db){
 		db.collection("data").findOne({"_id": objectID(idHome)}, function(err, doc) {
 			if (doc) {
-				resultArray.push(doc);
-				temp = resultArray[0].temp
+				temp = doc.temp
 				console.log(temp);
                 db.close();
                 res.render('index', {home: temp, title: "House", tempOutside: tempOs});
