@@ -39,7 +39,6 @@ function refresh(callThisFunction){
             }else{
                 console.log("no data found");
             }
-            1
         });
     });
 }
