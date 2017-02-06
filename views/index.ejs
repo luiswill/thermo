@@ -7,46 +7,39 @@
   </head>
 
 
-    <% include templates/header.ejs %>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+    <header><% include templates/header.ejs %></header>
+	<h1><%= title %></h1>
+	<div id="core">
+		
+		<div id="outsideWeather">
+			<%= weather.name%><br/>
+			<span id="outsideTemp"><%= weather.main.temp %>°C</span> <br/>
+			Wind speed: <%= weather.wind.speed %><br/>
+		</div>
+		
+		<div id="homeTemp">
+		
+			<div id="homeTemp_header">Home Thermometer</div>
+			
+			<div id="currentTemp">
+				<div id="getTemp">
+					<a href="/" id="loadData">Update Temperature</a>
+				</div>
 
+				<div id="myTemp">
+					<%= home %> °C
+				</div>
+			</div>
+			
+			<div id="updateTemp">
+				<form method="post" action="/update">
+				  New temp : <input type="number" name="changeTemp" >
+					<button type="submit">change Temperature</button>
+				</form>
 
-    <h1>Home</h1>
-
-
-    <br/>
-    <br/>
-
-    <div id="getTemp">
-
-        <a href="/get-data" id="loadData">Refresh Temperature</a>
-    </div>
-
-
-      <div id="actualTemp">
-        <%= home
-        %> °C.
-      </div>
-
-    <div id="updateTemp">
-        <h1>Update</h1>
-        <form method="post" action="/update">
-          New temp : <input type="number" name="changeTemp" >
-            <button type="submit">UPDATE</button>
-        </form>
-
-    </div>
-
-    <br/><br/>
-
-
-  Temp outside <%= weather.main.temp %> <br/>
-  Wind speed <%= weather.wind.speed %><br/>
-  Name city <%= weather.name%><br/>
-
-
-
+			</div>
+		</div>
+	</div>
 
   </body>
 </html>

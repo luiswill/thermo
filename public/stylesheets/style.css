@@ -1,34 +1,99 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 1em "Lucida Grande", Helvetica, Arial, sans-serif;
+  margin: 0 auto;
 }
 
-a {
-  color: #00B7FF;
+header{
+	background-color: #40ca50;
+	padding: 10px;
+}
+
+header a {
+  color: white;
+  text-decoration: none;
+  margin: 0 5px 0 5px;
+}
+
+header a:hover{
+	cursor: pointer;
+	text-decoration: underline;
+}
+
+h1{
+	text-align: left;
+	padding: 0 0 0 10px;
+	font-style: italic;
+	color: #337ab7;
 }
 
 #loadData{
   padding: 2em;
-  background-color: #8ee7d7;
+  background-color: #337ab7;
   font-size: 1em;
-  color: black;
+  color: white;
   border-radius: 3px;
   text-decoration: none;
   border: 1px solid black;
 }
 
 #getTemp{
-  background-color: #40ca50;
+ 
 }
 
 #getTemp, #updateTemp{
   padding: 3em;
 }
 
-#actualTemp {
+#myTemp {
   font-size: 4em;
 }
 
+#core{
+	margin: 0 4% 0 4%;
+	width: 90%;
+	padding: 1%;
+	/*background-color: #E6E6FA;*/
+}
+
+#outsideWeather{
+	float: right;
+	background-color: #8ee7d7;
+	width: 25%;
+	min-height: 300px;
+}
+
+#currentTemp{
+	min-height: 300px;
+	background-color: white;
+	column-width: 100px;
+}
+
+#homeTemp{
+	border: solid 2px black;
+	border-radius: 10px;
+	width: 70%;
+}
+
+#homeTemp_header{
+	background-color: #40ca50;
+	border-bottom: solid 2px black;
+	border-radius: 10px 10px 0 0;
+	padding: 5px 0 5px 0;
+	text-align: center;
+	color: white;
+	font-size: 1.5em;
+	font-weight: bold;
+}
+
+#updateTemp{
+	background-color: white;
+	border-top: solid 2px black;
+	border-radius:  0 0 10px 10px;
+}
+
+#profile_links{
+	float: right;
+}
 
 .signup{
   text-align : center;

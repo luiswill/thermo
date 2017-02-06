@@ -22,19 +22,9 @@ router.get('/', function(req, res, next){
     var final = 0;
     weatherAPI.getAllWeather(function(err, weatherJSON){
         refresh(function(err, temp){
-            res.render('index', {title: "House Temperature", home: temp, weather: weatherJSON});
+            res.render('index', {title: "My Thermometer", home: temp, weather: weatherJSON});
         });
 
-    });
-});
-
-
-/* GET temp from server */
-router.get('/get-data', function(req, res, next) {
-    weatherAPI.getAllWeather(function(err, weatherJSON) {
-        refresh(function (err, data) {
-            res.render('index', {title: "House", home: data, weather: weatherJSON});
-        })
     });
 });
 
@@ -64,12 +54,8 @@ router.post('/update', function(req, res, next){
         db.collection("data").updateOne({"_id": objectID(idHome)}, {$set: item}, function(err, result) {
             assert.equal(null, err);
             console.log("Temperature updated");
-            refresh(function (err, data) {
-                weatherAPI.getAllWeather(function(err, weatherJSON) {
-                    res.render('index', {title: "House", home: data, weather: weatherJSON});
-                    db.close();
-                });
-            })
+			db.close();
+			res.redirect('/');
         });
     })
 });
