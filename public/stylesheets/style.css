@@ -28,3 +28,30 @@ a {
 #actualTemp {
   font-size: 4em;
 }
+
+
+.signup{
+  text-align : center;
+  width : 50%;
+  height : auto;
+  margin : auto;
+}
+
+.reg_msg{
+  width : 60%;
+  height : auto;
+  margin : auto;
+}
+
+.input_group input{
+  height : 50px;
+  font-size : 17px;
+  margin : 0 0 19px 0;
+  padding : 12px 21px 12px 21px;
+  border : 1px solid #efefef;
+}
+
+.error{
+  color : red;
+  font-weight : bold;
+}
