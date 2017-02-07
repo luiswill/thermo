@@ -8,7 +8,7 @@ var assert = require('assert');
 var passport = require('passport');
 var weatherAPI = require('openweather-apis');
 weatherAPI.setAPPID('1c12a784ad25f95111035d8132662635');
-weatherAPI.setCity('London');
+weatherAPI.setCity('Saarbruecken');
 
 var idHome = '58946479f12654d263d62844'; //id of our home, doesn't change, it's a constant
 var url = 'mongodb://localhost:27017/test';
@@ -20,12 +20,9 @@ module.exports = router;
 /* GET home page. */
 router.get('/', function(req, res, next){
     var final = 0;
-    weatherAPI.getAllWeather(function(err, weatherJSON){
-        refresh(function(err, temp){
+        refresh(function(err, temp, weatherJSON){
             res.render('index', {title: "My Thermometer", home: temp, weather: weatherJSON});
         });
-
-    });
 });
 
 function refresh(callThisFunction){
@@ -34,8 +31,10 @@ function refresh(callThisFunction){
         db.collection("data").findOne({"_id": objectID(idHome)}, function(err, doc) {
             if(err) throw err;
             if (doc) {
-                callThisFunction(null, doc.temp);
-                db.close();
+				weatherAPI.getAllWeather(function(err, weatherJSON){
+					callThisFunction(null, doc.temp, weatherJSON);
+					db.close();
+				});
             }else{
                 console.log("no data found");
             }
