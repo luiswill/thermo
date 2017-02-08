@@ -8,10 +8,7 @@ var assert = require('assert');
 var passport = require('passport');
 var weatherAPI = require('openweather-apis');
 weatherAPI.setAPPID('1c12a784ad25f95111035d8132662635');
-
 weatherAPI.setCity('Saarbruecken');
-
-
 var idHome = '58946479f12654d263d62844'; //id of our home, doesn't change, it's a constant
 var url = 'mongodb://localhost:27017/test';
 var einheit = "°C";
@@ -22,17 +19,11 @@ module.exports = router;
 /* GET home page. */
 router.get('/', function(req, res, next){
     var final = 0;
-
     weatherAPI.getAllWeather(function(err, weatherJSON){
         refresh(function(err, temp){
             res.render('index', {title: "My Thermometer", home: temp, unity: einheit, weather: weatherJSON});
         });
-
     });
-
-        refresh(function(err, temp, weatherJSON){
-            res.render('index', {title: "My Thermometer", home: temp, unity: einheit, weather: weatherJSON});
-        });
 });
 
 function refresh(callThisFunction){
