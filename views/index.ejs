@@ -1,69 +1,68 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-      <link rel='stylesheet' href='/stylesheets/sidebar.css' />
-      <script>
-          function openNav() {
-              document.getElementById("mySidebar").style.width = "250px";
-              document.getElementById("main").style.marginLeft = "250px";
-          }
+  	<head>
+    	<title><%= title %></title>
+    	<link rel='stylesheet' href='/stylesheets/style.css' />
+      	<link rel='stylesheet' href='/stylesheets/sidebar.css' />
+      	<script>
+          	function openNav() {
+				document.getElementById("mySidebar").style.width = "250px";
+              	document.getElementById("main").style.marginLeft = "250px";
+          	}
+          	function closeNav() {
+              	document.getElementById("mySidebar").style.width = "0";
+              	document.getElementById("main").style.marginLeft= "0";
+          	}
+      	</script>
+  	</head>
 
-          function closeNav() {
-              document.getElementById("mySidebar").style.width = "0";
-              document.getElementById("main").style.marginLeft= "0";
-          }
-      </script>
+	<body>
+  		<% include sidebar.ejs %>
 
-  </head>
+    	<div id="main">
+    		<header><% include templates/header.ejs %></header>
+			<h1><%= title %></h1>
+			<div id="core">
+				<style>
+					#outsideWeather{
+						background-image: url("/images/<%= weather.weather[0].main %>.jpg");
+					}
+				</style>
 
-  <% include sidebar.ejs %>
-
-    <div id="main">
-    <header><% include templates/header.ejs %></header>
-	<h1><%= title %></h1>
-	<div id="core">
-		<style>
-			#outsideWeather{
-				background-image: url("/images/<%= weather.weather[0].main %>.jpg");
-			}
-		</style>
-		<div id="outsideWeather">
+				<div id="outsideWeather">
 			
-			<div id="city"><%= weather.name%></div><br/>
-			<div id="weather_main"><%= weather.weather[0].main %></div></br>
-			<div id="outside_temp"><%= weather.main.temp %>°C</div> <br/>
+					<div id="city"><%= weather.name%></div><br/>
+					<div id="weather_main"><%= weather.weather[0].main %></div></br>
+					<div id="outside_temp"><%= weather.main.temp %>°C</div> <br/>
 
-		</div>
+				</div>
 
-		<div id="homeTemp">
+				<div id="homeTemp">
 		
-			<div id="homeTemp_header">Home Thermometer</div>
+					<div id="homeTemp_header">Home Thermometer</div>
 			
-			<div id="currentTemp">
-				<div id="getTemp">
-					<a href="/" id="loadData">Update Temperature</a>
-				</div>
+					<div id="currentTemp">
+						<div id="getTemp">
+							<a href="/" id="loadData">Update Temperature</a>
+						</div>
 
-				<div id="myTemp">
-					<%= home %> <%= unity%>
-				</div>
-			</div>
+						<div id="myTemp">
+							<%= home %> <%= unity%>
+						</div>
+					</div>
 			
-			<div id="updateTemp">
-				<form method="post" action="/update">
-				  New temp : <input type="number" name="changeTemp" >
-					<button type="submit">change Temperature</button>
-				</form>
-				<form method="post" action = "/switch">
-					<button type="submit">Switch Once</button>
-				</form>
+					<div id="updateTemp">
+						<form method="post" action="/update">
+				  			New temp : <input type="number" name="changeTemp" >
+							<button type="submit">change Temperature</button>
+						</form>
+						<form method="post" action = "/switch">
+							<button type="submit">Switch Once</button>
+						</form>
 
+					</div>
+				</div>
 			</div>
 		</div>
-	</div>
-    </div>
-
-  </body>
+  	</body>
 </html>
