@@ -30,15 +30,15 @@
 			}
 		</style>
 		<div id="outsideWeather">
-<<<<<<< HEAD
+
 			<%= weather.name%><br/>
-			<span id="outsideTemp"><%= weather.main.temp %>°C </span> <br/>
+			<span id="outsideTemp"><%= weather.main.temp %>°C</span> <br/>
 			Wind speed: <%= weather.wind.speed %><br/>
-=======
+
 			<div id="city"><%= weather.name%></div><br/>
 			<div id="weather_main"><%= weather.weather[0].main %></div></br>
 			<div id="outside_temp"><%= weather.main.temp %>°C</div> <br/>
->>>>>>> origin/master
+
 		</div>
 		
 		<div id="homeTemp">
@@ -51,8 +51,7 @@
 				</div>
 
 				<div id="myTemp">
-
-					<%= home %> <%= unity %>
+					<%= home %> <%= unity%>
 				</div>
 			</div>
 			
@@ -61,9 +60,8 @@
 				  New temp : <input type="number" name="changeTemp" >
 					<button type="submit">change Temperature</button>
 				</form>
-				<form method="post" action="/switch" >
-					Einheit:
-					<button type = "submit">Switch Once</button>
+				<form method="post" action = "/switch">
+					<button type="submit">Switch Once</button>
 				</form>
 
 			</div>

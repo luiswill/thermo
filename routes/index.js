@@ -8,44 +8,33 @@ var assert = require('assert');
 var passport = require('passport');
 var weatherAPI = require('openweather-apis');
 weatherAPI.setAPPID('1c12a784ad25f95111035d8132662635');
-<<<<<<< HEAD
-weatherAPI.setCity('London');
-=======
+
 weatherAPI.setCity('Saarbruecken');
 
->>>>>>> origin/master
+
 var idHome = '58946479f12654d263d62844'; //id of our home, doesn't change, it's a constant
 var url = 'mongodb://localhost:27017/test';
 var einheit = "°C";
-
 router.use(bodyParser.urlencoded({extended: true})); // otherwise get the error : "bodyparser is outdated"
 
 module.exports = router;
 
-/**
- * Inialising the Home-Page
- * Loading outside weather
- * Default unity: Celsius.
- */
+/* GET home page. */
 router.get('/', function(req, res, next){
     var final = 0;
-<<<<<<< HEAD
+
     weatherAPI.getAllWeather(function(err, weatherJSON){
         refresh(function(err, temp){
-            res.render('index', {title: "My Thermometer", home: temp,  unity: einheit, weather: weatherJSON});
+            res.render('index', {title: "My Thermometer", home: temp, unity: einheit, weather: weatherJSON});
         });
+
     });
-=======
+
         refresh(function(err, temp, weatherJSON){
-            res.render('index', {title: "My Thermometer", home: temp, weather: weatherJSON});
+            res.render('index', {title: "My Thermometer", home: temp, unity: einheit, weather: weatherJSON});
         });
->>>>>>> origin/master
 });
 
-/**
- * This function refrehs the Temperature
- * @param callThisFunction
- */
 function refresh(callThisFunction){
     mongo.connect(url, function(err, db){
         if(err) throw err;
@@ -63,54 +52,50 @@ function refresh(callThisFunction){
     });
 }
 
-/**
- * Die Einheit einmalig veraendern und dies darstellen
- */
-router.post('/switch', function(req, res, next){
-    var SWITCH_F_C_KONST = 32;
-    var SWITCH_C_F_FAKTOR = 1.8;
-    mongo.connect(url, function(err, db) {
-        db.collection("data").findOne({"_id": objectID(idHome)}, function(err, doc) {
-            if(err){
-                throw err;
-            }
-            if (doc){
-                if (einheit == "°C") {
-                    einheit = "°F";
-                    var item = doc.temp * parseFloat(SWITCH_C_F_FAKTOR) + parseFloat(SWITCH_F_C_KONST);
-                    weatherAPI.getAllWeather(function (err, weatherJSON) {
-                        res.render('index', {
-                            title: "My Thermometer",
-                            home: item,
-                            unity: einheit,
-                            weather: weatherJSON
-                        });
-                    });
+    /**
+     * Die Einheit einmalig veraendern und dies darstellen
+     */
+    router.post('/switch', function(req, res, next){
+        var SWITCH_F_C_KONST = 32;
+        var SWITCH_C_F_FAKTOR = 1.8;
+        mongo.connect(url, function(err, db) {
+            db.collection("data").findOne({"_id": objectID(idHome)}, function(err, doc) {
+                if(err){
+                    throw err;
                 }
-                else if (einheit == "°F"){
-                    einheit = "°C";
-                    var item = doc.temp;
-                    weatherAPI.getAllWeather(function (err, weatherJSON) {
-                        res.render('index', {
-                            title: "My Thermometer",
-                            home: item,
-                            unity: einheit,
-                            weather: weatherJSON
+                if (doc){
+                    if (einheit == "°C") {
+                        einheit = "°F";
+                        var item = doc.temp * parseFloat(SWITCH_C_F_FAKTOR) + parseFloat(SWITCH_F_C_KONST);
+                        weatherAPI.getAllWeather(function (err, weatherJSON) {
+                            res.render('index', {
+                                title: "My Thermometer",
+                                home: item,
+                                unity: einheit,
+                                weather: weatherJSON
+                            });
                         });
-                    });
+                    }
+                    else if (einheit == "°F"){
+                        einheit = "°C";
+                        var item = doc.temp;
+                        weatherAPI.getAllWeather(function (err, weatherJSON) {
+                            res.render('index', {
+                                title: "My Thermometer",
+                                home: item,
+                                unity: einheit,
+                                weather: weatherJSON
+                            });
+                        });
+                    }
                 }
-            }
+            })
         })
-    })
-});
+    });
 
 
-
-/**
- * Save the new temperature on the database and show it
- */
+/* UPDATE DATA from client to server */
 router.post('/update', function(req, res, next){
-    //aktmp = req.body.changeTemp;
     einheit = "°C";
     var item = {temp: req.body.changeTemp};
 
@@ -126,9 +111,8 @@ router.post('/update', function(req, res, next){
 });
 
 
-/**
- * way to signup
- */
+
+//Chemin vers signup
 router.get('/signup', function (req, res){
     msgError = req.msgError;
     res.render('signup', {message : msgError});
