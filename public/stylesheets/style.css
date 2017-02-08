@@ -57,9 +57,21 @@ h1{
 
 #outsideWeather{
 	float: right;
-	background-color: #8ee7d7;
 	width: 25%;
-	min-height: 300px;
+	height: 250px;
+	text-align: center;
+	font-family: Helvetica;
+	padding-top: 20px;
+	color: white;
+	 text-shadow: 2px 2px black;
+}
+
+#city{
+	font-size: 1.5em;
+}
+
+#outside_temp{
+	font-size: 4em;
 }
 
 #currentTemp{

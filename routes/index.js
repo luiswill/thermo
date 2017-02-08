@@ -8,7 +8,12 @@ var assert = require('assert');
 var passport = require('passport');
 var weatherAPI = require('openweather-apis');
 weatherAPI.setAPPID('1c12a784ad25f95111035d8132662635');
+<<<<<<< HEAD
 weatherAPI.setCity('London');
+=======
+weatherAPI.setCity('Saarbruecken');
+
+>>>>>>> origin/master
 var idHome = '58946479f12654d263d62844'; //id of our home, doesn't change, it's a constant
 var url = 'mongodb://localhost:27017/test';
 var einheit = "°C";
@@ -24,11 +29,17 @@ module.exports = router;
  */
 router.get('/', function(req, res, next){
     var final = 0;
+<<<<<<< HEAD
     weatherAPI.getAllWeather(function(err, weatherJSON){
         refresh(function(err, temp){
             res.render('index', {title: "My Thermometer", home: temp,  unity: einheit, weather: weatherJSON});
         });
     });
+=======
+        refresh(function(err, temp, weatherJSON){
+            res.render('index', {title: "My Thermometer", home: temp, weather: weatherJSON});
+        });
+>>>>>>> origin/master
 });
 
 /**
@@ -41,8 +52,10 @@ function refresh(callThisFunction){
         db.collection("data").findOne({"_id": objectID(idHome)}, function(err, doc) {
             if(err) throw err;
             if (doc) {
-                callThisFunction(null, doc.temp);
-                db.close();
+				weatherAPI.getAllWeather(function(err, weatherJSON){
+					callThisFunction(null, doc.temp, weatherJSON);
+					db.close();
+				});
             }else{
                 console.log("no data found");
             }
@@ -166,3 +179,7 @@ function isLoggedIn(req, res, next){
 }/**
  * Created by Luis on 06.02.2017.
  */
+
+
+
+

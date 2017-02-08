@@ -3,18 +3,42 @@
   <head>
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+      <link rel='stylesheet' href='/stylesheets/sidebar.css' />
+      <script>
+          function openNav() {
+              document.getElementById("mySidebar").style.width = "250px";
+              document.getElementById("main").style.marginLeft = "250px";
+          }
+
+          function closeNav() {
+              document.getElementById("mySidebar").style.width = "0";
+              document.getElementById("main").style.marginLeft= "0";
+          }
+      </script>
 
   </head>
 
+  <% include sidebar.ejs %>
 
+    <div id="main">
     <header><% include templates/header.ejs %></header>
 	<h1><%= title %></h1>
 	<div id="core">
-		
+		<style>
+			#outsideWeather{
+				background-image: url("/images/<%= weather.weather[0].main %>.jpg");
+			}
+		</style>
 		<div id="outsideWeather">
+<<<<<<< HEAD
 			<%= weather.name%><br/>
 			<span id="outsideTemp"><%= weather.main.temp %>°C </span> <br/>
 			Wind speed: <%= weather.wind.speed %><br/>
+=======
+			<div id="city"><%= weather.name%></div><br/>
+			<div id="weather_main"><%= weather.weather[0].main %></div></br>
+			<div id="outside_temp"><%= weather.main.temp %>°C</div> <br/>
+>>>>>>> origin/master
 		</div>
 		
 		<div id="homeTemp">
@@ -45,6 +69,7 @@
 			</div>
 		</div>
 	</div>
+    </div>
 
   </body>
 </html>
