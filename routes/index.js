@@ -103,8 +103,19 @@ router.post('/update', function(req, res, next){
         db.collection("data").updateOne({"_id": objectID(idHome)}, {$set: item}, function(err, result) {
             assert.equal(null, err);
             console.log("Temperature updated");
-			db.close();
-			res.redirect('/');
+            db.collection("data").findOne({"_id": objectID(idHome)}, function(err, doc) {
+                if (err) {
+                    throw err;
+                }
+                if (doc) {
+                    var currentdate = new Date();
+                    console.log(currentdate + " the temp was changed to : " + doc.temp + "°C");
+                }
+                db.close();
+
+            });
+            db.close();
+            res.redirect('/');
         });
     })
 });
