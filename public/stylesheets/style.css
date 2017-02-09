@@ -24,7 +24,7 @@ h1{
 	padding: 0 0 0 10px;
 	font-style: italic;
 	color: #337ab7;
-}
+=}
 
 #loadData{
   padding: 2em;
@@ -37,7 +37,7 @@ h1{
 }
 
 #getTemp{
- 
+	margin: 100px 0 0 0;
 }
 
 #getTemp, #updateTemp{
@@ -79,9 +79,15 @@ h1{
 }
 
 #currentTemp{
-	min-height: 300px;
+	min-height: 400px;
 	background-color: white;
 	column-width: 100px;
+	padding: 10px;
+	border-radius: 10px;
+}
+
+#viewport{
+	float: right;
 }
 
 #homeTemp{
@@ -102,9 +108,7 @@ h1{
 }
 
 #updateTemp{
-	background-color: white;
-	border-top: solid 2px black;
-	border-radius:  0 0 10px 10px;
+	
 }
 
 #profile_links{

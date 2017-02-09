@@ -43,27 +43,35 @@
 					<div id="homeTemp_header">Home Thermometer</div>
 			
 					<div id="currentTemp">
+						<canvas id="viewport"></canvas>
+						<div id="myTemp"><%= home %> <%= unity %></div>
 						<div id="getTemp">
 							<a href="/" id="loadData">Update Temperature</a>
 						</div>
-
-						<div id="myTemp">
-							<%= home %> <%= unity%>
-						</div>
-					</div>
-			
-					<div id="updateTemp">
-						<form method="post" action="/update">
-				  			New temp : <input type="number" name="changeTemp" >
-							<button type="submit">change Temperature</button>
-						</form>
-						<form method="post" action = "/switch">
-							<button type="submit">Switch Once</button>
-						</form>
-
-					</div>
 				</div>
 			</div>
 		</div>
+		<script>
+			var canvas = document.getElementById('viewport');
+			canvas.height = 400;
+			var ctx = canvas.getContext('2d');
+			var temp = <%= home %>;
+			var unity = "<%= unity %>";
+			var mercury_left = 37, mercury_level_0_deg = 237, one_deg_space = 4,
+				mercury_width = 17, mercury_down = 150;
+			make_base();
+
+			function make_base()
+			{
+				base_image = new Image();
+				base_image.src = '/images/thermometer.jpg';
+				base_image.onload = function(){
+					ctx.drawImage(base_image, 0, 0, 92, 400);
+					ctx.fillStyle="red";
+					ctx.fillRect(mercury_left,mercury_level_0_deg - temp * one_deg_space,
+						mercury_width, mercury_down + temp * one_deg_space);
+				}
+			}
+		</script>
   	</body>
 </html>
