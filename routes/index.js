@@ -22,6 +22,7 @@ module.exports = router;
  */
 router.get('/', function(req, res, next){
     var final = 0;
+    einheit = "°C";
     weatherAPI.getAllWeather(function(err, weatherJSON){ //update external weather
         refresh(function(err, temp){
             res.render('index', {title: "My Thermometer", home: temp, unity: einheit, weather: weatherJSON}); //update display
