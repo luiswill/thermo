@@ -1,24 +1,22 @@
-var express = require('express');
-var path = require('path');
+var express    = require('express');
+var path       = require('path');
 var bodyParser = require('body-parser');
-var session = require('express-session');
-var mongoose = require('mongoose');
-var passport = require('passport');
+var session    = require('express-session');
+var mongoose   = require('mongoose');
+var passport   = require('passport');
 var MongoStore = require('connect-mongo')(session);
-var port = process.env.PORT || 3000;
-var app = express();
-var user = require('./routes/index');
-var http = require('http');
-var request = require('request');
+var port       = process.env.PORT || 3000;
+var app        = express();
+var user       = require('./routes/index');
+var http       = require('http');
+var request    = require('request');
 
 
-
-
-var index = require('./routes/index');
-var admin = require('./routes/admin');
-var users = require('./routes/passport');
+var index     = require('./routes/index');
+var admin     = require('./routes/admin');
+var users     = require('./routes/passport');
 var loginPage = require('./routes/login');
-var signup = require('./routes/signup');
+var signup    = require('./routes/signup');
 
 var app = express(); //initialize express
 

@@ -9,7 +9,9 @@ var request = require('request');
 
 module.exports = router;
 
-/* GET home page. */
+/**
+ * get back to the home page
+ */
 router.get('/', function(req, res, next) {
     res.render('login', { title: 'Login', loginError: "", passwordError: ""});
 });

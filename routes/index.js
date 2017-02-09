@@ -8,25 +8,31 @@ var assert      = require('assert');
 var passport    = require('passport');
 var idHome      = '58946479f12654d263d62844'; //id of our home, doesn't change, it's a constant
 var url         = 'mongodb://localhost:27017/test';
-var einheit     = "°C";
+var einheit     = "°C"; //Celius is the default unity
 var weatherAPI  = require('openweather-apis');
 weatherAPI.setAPPID('1c12a784ad25f95111035d8132662635');
-weatherAPI.setCity('Saarbruecken');
+weatherAPI.setCity('Saarbruecken'); //The locatin at this moment
 
 router.use(bodyParser.urlencoded({extended: true})); // otherwise get the error : "bodyparser is outdated"
 
 module.exports = router;
 
-/* GET home page. */
+/**
+ * When the hompage is called, refresh the local and external weather
+ */
 router.get('/', function(req, res, next){
     var final = 0;
-    weatherAPI.getAllWeather(function(err, weatherJSON){
+    weatherAPI.getAllWeather(function(err, weatherJSON){ //update external weather
         refresh(function(err, temp){
-            res.render('index', {title: "My Thermometer", home: temp, unity: einheit, weather: weatherJSON});
+            res.render('index', {title: "My Thermometer", home: temp, unity: einheit, weather: weatherJSON}); //update display
         });
     });
 });
 
+/**
+ * @param callThisFunction the function to be called with the new weather
+ * refresh the temperature of the house in the db and the external temp
+ */
 function refresh(callThisFunction){
     mongo.connect(url, function(err, db){
         if(err) throw err;
@@ -45,11 +51,15 @@ function refresh(callThisFunction){
 }
 
     /**
-     * Die Einheit einmalig veraendern und dies darstellen
+     * Switch unity once from Fahrenheit to Celsius oder the other way, called with the button switch once
+     * Display this change, but not change value in Database, there the temp is always stocked in Celsius
      */
     router.post('/switch', function(req, res, next){
+        var item = 0;
+        // 2 constants needes to convert the temperature
         var SWITCH_F_C_KONST = 32;
         var SWITCH_C_F_FAKTOR = 1.8;
+
         mongo.connect(url, function(err, db) {
             db.collection("data").findOne({"_id": objectID(idHome)}, function(err, doc) {
                 if(err){
@@ -57,39 +67,35 @@ function refresh(callThisFunction){
                 }
                 if (doc){
                     if (einheit == "°C") {
-                        einheit = "°F";
-                        var item = doc.temp * parseFloat(SWITCH_C_F_FAKTOR) + parseFloat(SWITCH_F_C_KONST);
-                        weatherAPI.getAllWeather(function (err, weatherJSON) {
-                            res.render('index', {
-                                title: "My Thermometer",
-                                home: item,
-                                unity: einheit,
-                                weather: weatherJSON
-                            });
-                        });
+                        einheit = "°F";//change unity to display
+                        item = doc.temp * parseFloat(SWITCH_C_F_FAKTOR) + parseFloat(SWITCH_F_C_KONST);//convert to Fahrenheit
+
                     }
                     else if (einheit == "°F"){
-                        einheit = "°C";
-                        var item = doc.temp;
-                        weatherAPI.getAllWeather(function (err, weatherJSON) {
-                            res.render('index', {
-                                title: "My Thermometer",
-                                home: item,
-                                unity: einheit,
-                                weather: weatherJSON
-                            });
-                        });
+                        einheit = "°C";//change unity to display
+                        item = doc.temp;//the value stocked in the database
                     }
+                    weatherAPI.getAllWeather(function (err, weatherJSON) {
+                        res.render('index', {
+                            title: "My Thermometer",
+                            home: item,
+                            unity: einheit,
+                            weather: weatherJSON
+                        });
+                    });
                 }
-            })
+            });
         })
     });
 
 
-/* UPDATE DATA from client to server */
+/**
+ * Update the weather in the house, required by user
+ * change the value in the database, display it
+ */
 router.post('/update', function(req, res, next){
-    einheit = "°C";
-    var item = {temp: req.body.changeTemp};
+    einheit = "°C";//unity back to Celsius
+    var item = {temp: req.body.changeTemp};//look what temp the user entered
 
     mongo.connect(url, function(err, db){
         assert.equal(null, err);
@@ -103,28 +109,35 @@ router.post('/update', function(req, res, next){
 });
 
 
-
-//Chemin vers signup
+/**
+ * link to signup
+ */
 router.get('/signup', function (req, res){
     msgError = req.msgError;
     res.render('signup', {message : msgError});
 });
 
-//Chemin vers signup pour envoyer les infos à la db
+/**
+ * link to signup and send the data to the database
+ */
 router.post('/signup', passport.authenticate('local.signup', {
-    successRedirect: '/profile',
-    failureRedirect: '/signup',
+    successRedirect: '/profile', //if a profile exists
+    failureRedirect: '/signup',  //if not he shall sign up
     failureFlash : true
 }));
 
-//Chemin vers login
+/**
+ * link to login, enter username
+ */
 router.get('/login', function (req, res){
     login_error = req.body.loginError;
     password_error = req.body.passwordError;
     res.render('login', {loginError: login_error, passwordError : password_error});
 });
 
-//Chemin vers login pour envoyer les infos à la db
+/**
+ * link to login and send data to the database
+ */
 router.post('/login', passport.authenticate('local.login', {
     successRedirect: '/profile',
     failureRedirect: '/login',
@@ -137,7 +150,9 @@ router.get('/profile', isLoggedIn, function (req, res){
     res.render('profile', {user: req.user});
 });
 
-//Fonction de logout
+/**
+ * function to logout
+ */
 router.get('/logout', function (req, res){
     req.logout();
     res.redirect('/');
