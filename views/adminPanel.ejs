@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/sidebar.css' />
+    <script>
+        function openNav() {
+            document.getElementById("mySidebar").style.width = "250px";
+            document.getElementById("main").style.marginLeft = "250px";
+        }
+        function closeNav() {
+            document.getElementById("mySidebar").style.width = "0";
+            document.getElementById("main").style.marginLeft= "0";
+        }
+    </script>
+</head>
+
+<body>
+<% include sidebar.ejs %>
+
+
+<h1>Welcome  <%= user.fullname %> !!!! </h1>
+
+<strong>email</strong>: <%= user.email %><br>
+
+    <div id="updateTemp">
+        <form method="post" action="/update">
+            New temp : <input type="number" name="changeTemp" >
+            <button type="submit">change Temperature</button>
+        </form>
+        <form method="post" action = "/switch">
+            <button type="submit">Switch Once</button>
+        </form>
+
+    </div>
+</body>
+</html>
