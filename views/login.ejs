@@ -1,58 +1,11 @@
-<!DOCTYPE html>
-<html lang = "en">
-<head>
-	<meta charset = "UTF-8">
-	<title>Passwort</title>
-
-<link rel = "stylesheet" href = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-integrity = ""
-crossorigin = "anonymous">
-
-<link rel="stylesheet" href="/css/custom.css">
-
-</head>
-
-<body>
-	<div class = "container" style = "margin-bottom : 100px">
-	
-		<div class = "text-center reg_msg">
-			<h2 style ="color:#808080"><span>Login</span></h2>
-
-			<div class = "error">
-				<h3><%= loginError %></h3>
-				<h3><%= passwordError %></h3>
-			</div>
-
-		</div><br>
-		
-		
-		<div class = "row signup">
-			<form action = "/login" method="post">
-
-				<div class = "row form-group input_group">
-					<div class = "col-sm-12">
-						<input type = "text" name = "email" id = "email" class = "form-control"
-						placeholder = "Email">
-					</div>
-				</div>
-			
-				<div class = "row form-group input_group">
-					<div class = "col-sm-12">
-						<input type = "password" name = "password" id = "pasword" class = "form-control"
-						placeholder = "Password">
-					</div>
-				</div>
-			
-				<div class = "row form-group">
-					<div class = "col-sm-12">
-						<input type = "submit" name = "login" id = "login" class = "form-control btn btn-primary"
-						value = "Login">
-					</div>
-				</div>
-			</form>
-		</div>
+<form method="post" action="/users/login">
+	<div class="form-group">
+		<label>Username</label>
+		<input type="text" class="form-control" name="username" placeholder="Username">
 	</div>
-</body>
-
-			
-			
+	<div class="form-group">
+		<label>Password</label>
+		<input type="password" class="form-control" name="password" placeholder="Password">
+	</div>
+	<button type="submit" class="btn btn-default">Submit</button>
+</form>

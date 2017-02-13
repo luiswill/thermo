@@ -2,8 +2,8 @@
 <html>
 <head>
     <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-    <link rel='stylesheet' href='/stylesheets/sidebar.css' />
+    <link rel='stylesheet' href='/css/style.css' />
+    <link rel='stylesheet' href='/css/sidebar.css' />
     <script>
         function openNav() {
             document.getElementById("mySidebar").style.width = "250px";
@@ -20,7 +20,9 @@
 <% include sidebar.ejs %>
 
 
-<h1>Welcome  <%= user.fullname %> !!!! </h1>
+<h1>Welcome  <%= user.name %> !!!! </h1>
+
+<a href="/users/logout">Logout</a></br>
 
 <strong>email</strong>: <%= user.email %><br>
 

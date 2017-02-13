@@ -1,22 +1,46 @@
 var mongoose = require('mongoose');
-var bcrypt = require('bcrypt-nodejs');
-var userSchema = mongoose.Schema({
-	fullname : {type : String},
-	email : {type : String},
-	password: {type : String}
+var bcrypt = require('bcryptjs');
+
+// User Schema
+var UserSchema = mongoose.Schema({
+	username: {
+		type: String,
+		index:true
+	},
+	password: {
+		type: String
+	},
+	email: {
+		type: String
+	},
+	name: {
+		type: String
+	}
 });
 
-// Sa crypte le mdp oklm (à enlever aussi peut être)
-userSchema.methods.encryptPassword = function(password){
-	return bcrypt.hashSync(password, bcrypt.genSaltSync(10), null);
-};
+var User = module.exports = mongoose.model('User', UserSchema);
 
-//fonction Check si mdp est le même
-//password : input de l'utilisateur
-//this.password : mdp de la db
+module.exports.createUser = function(newUser, callback){
+	bcrypt.genSalt(10, function(err, salt) {
+	    bcrypt.hash(newUser.password, salt, function(err, hash) {
+	        newUser.password = hash;
+	        newUser.save(callback);
+	    });
+	});
+}
 
-userSchema.methods.validPassword = function(password){
-	return bcrypt.compareSync(password, this.password);
-};
+module.exports.getUserByUsername = function(username, callback){
+	var query = {username: username};
+	User.findOne(query, callback);
+}
 
-module.exports = mongoose.model('User', userSchema);
+module.exports.getUserById = function(id, callback){
+	User.findById(id, callback);
+}
+
+module.exports.comparePassword = function(candidatePassword, hash, callback){
+	bcrypt.compare(candidatePassword, hash, function(err, isMatch) {
+    	if(err) throw err;
+    	callback(null, isMatch);
+	});
+}
