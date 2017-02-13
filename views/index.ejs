@@ -34,7 +34,7 @@
 					<div id="city"><%= weather.name%></div><br/>
 					<div id="weather_main"><%= weather.weather[0].main %></div></br>
 					<div id="outside_temp"><%= weather.main.temp %>°C</div> <br/>
-
+					<div id="outside-humidity"><%= weather.main.humidity %>% humidity</div>
 
 				</div>
 
@@ -43,18 +43,35 @@
 					<div id="homeTemp_header">Home Thermometer</div>
 			
 					<div id="currentTemp">
+						<canvas id="viewport"></canvas>
+						<div id="myTemp"><%= home %> <%= unity %></div>
 						<div id="getTemp">
 							<a href="/" id="loadData">Update Temperature</a>
 						</div>
-
-						<div id="myTemp">
-							<%= home %> <%= unity%>
-						</div>
-					</div>
-
-
 				</div>
 			</div>
 		</div>
+		<script>
+			var canvas = document.getElementById('viewport');
+			canvas.height = 400;
+			var ctx = canvas.getContext('2d');
+			var temp = <%= home %>;
+			var unity = "<%= unity %>";
+			var mercury_left = 37, mercury_level_0_deg = 237, one_deg_space = 4,
+				mercury_width = 17, mercury_down = 150;
+			make_base();
+
+			function make_base()
+			{
+				base_image = new Image();
+				base_image.src = '/images/thermometer.jpg';
+				base_image.onload = function(){
+					ctx.drawImage(base_image, 0, 0, 92, 400);
+					ctx.fillStyle="red";
+					ctx.fillRect(mercury_left,mercury_level_0_deg - temp * one_deg_space,
+						mercury_width, mercury_down + temp * one_deg_space);
+				}
+			}
+		</script>
   	</body>
 </html>

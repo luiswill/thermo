@@ -1,5 +1,14 @@
 <div id="mySidebar" class="sidebar">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-    <input type="button" name="change" id="change" value="want to change temp">
-
+	<form method="post" action = "/switch">
+		<button type="submit" class="change">Switch Once</button>
+	</form>
+    <input type="button" name="change" class="change" value="want to change temp">
+	<hr />
+	<div id="divChangeTemp">
+	<form method="post" action="/update">
+		<input type="number" name="changeTemp" id="inputNewTemp"></input></br>
+		<button type="submit" class="change">change Temperature</button>
+	</form>
+	</div>
 </div>

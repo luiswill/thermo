@@ -8,10 +8,17 @@
     background-color: #111;
     overflow-x: hidden;
     transition: 0.5s;
-    padding-top: 60px;
+    padding: 60px 0 0 0;
+	text-align: center;
 }
 
-.sidebar #change {
+.sidebar hr{
+	color: #999;
+	background-color: #4CAF50;
+	height: 5px;
+}
+
+.sidebar .change {
     padding: 8px 8px 8px 32px;
     display: inline-block;
     font-size: 14px;
@@ -24,16 +31,26 @@
     border: none;
     border-radius: 15px;
     box-shadow: 0 9px #999;
-    transition: 0.3s
+    transition: 0.3s;
+	margin-bottom: 50px;
 }
 
-.sidebar #change:hover, .offcanvas #change:focus{
-    background-color: #3e8e41
+.sidebar .change:hover, .offcanvas .change:focus{
+    background-color: #3e8e41;
 }
-.sidebar #change:active {
+.sidebar .change:active {
     background-color: #3e8e41;
     box-shadow: 0 5px #666;
     transform: translateY(4px);
+}
+
+.sidebar #divChangeTemp{
+	text-align: center;
+}
+
+.sidebar #inputNewTemp{
+	width: 100px;
+	margin-bottom: 20px;
 }
 
 .sidebar .closebtn {
