@@ -4,6 +4,10 @@ var router      = express.Router();
 
 var bodyParser  = require("body-parser"); // body-parser extract data from the <form> and add it to the body property in the request object.
 var mongo       = require('mongodb').MongoClient;
+
+var csv         = require('fast-csv');
+var fs          = require('fs');
+
 var objectID    = require('mongodb').ObjectID;
 var assert      = require('assert');
 var idHome      = '58946479f12654d263d62844'; //id of our home, doesn't change, it's a constant
@@ -118,6 +122,26 @@ router.post('/update', function(req, res, next){
         db.collection("data").updateOne({"_id": objectID(idHome)}, {$set: item}, function(err, result) {
             assert.equal(null, err);
             console.log("Temperature updated");
+            db.collection("data").findOne({"_id": objectID(idHome)}, function(err, doc) {
+                if (err) {
+                    throw err;
+                }
+                if (doc) {
+                    var ws = fs.WriteStream("my.csv");
+                    var currentdate = new Date();
+                    //var ws = fs.WriteStream("my.csv");
+                    csv
+                        .write([
+                            [currentdate, doc.temp]
+                        ])
+                        .pipe(ws);
+
+
+                    console.log(currentdate + " the temp was changed to : " + doc.temp + "°C");
+                }
+                db.close();
+
+            });
             db.close();
             res.redirect('/');
         });
