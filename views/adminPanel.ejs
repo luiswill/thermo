@@ -19,12 +19,13 @@
 <body>
 <% include sidebar.ejs %>
 
-
-<h1>Welcome  <%= user.name %> !!!! </h1>
+<h1>Welcome  <%= user.username %> ! </h1>
 
 <a href="/users/logout">Logout</a></br>
 
-<strong>email</strong>: <%= user.email %><br>
+<strong>email</strong>:<br>
+
+<% if(user.isAdmin){ %>
 
     <div id="updateTemp">
         <form method="post" action="/update">
@@ -36,5 +37,7 @@
         </form>
 
     </div>
+
+<% }%>
 </body>
 </html>

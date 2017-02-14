@@ -42,7 +42,8 @@ router.post('/signup', function(req, res){
 			name: name,
 			email:email,
 			username: username,
-			password: password
+			password: password,
+            isAdmin: false
 		});
 
 		User.createUser(newUser, function(err, user){
@@ -87,7 +88,7 @@ passport.deserializeUser(function(id, done) {
 
 router.post('/login',
   passport.authenticate('local', {successRedirect:'/adminPanel', failureRedirect:'/users/login',failureFlash: true}),
-  function(req, res) {
+  function(req, res){
     res.redirect('/');
   });
 
