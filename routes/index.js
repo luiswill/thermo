@@ -135,14 +135,11 @@ router.post('/update', function(req, res, next){
                     throw err;
                 }
                 if (doc) {
-                    var ws = fs.WriteStream("my.csv");
                     var currentdate = new Date();
-                    //var ws = fs.WriteStream("my.csv");
                     csv
-                        .write([
-                            [currentdate, doc.temp]
-                        ])
-                        .pipe(ws);
+                        .writeToStream(fs.createWriteStream("my.csv",{'flags': 'a'}), [
+                            [currentdate, doc.temp,'\n'],
+                        ], {headers: false});
 
 
                     console.log(currentdate + " the temp was changed to : " + doc.temp + "°C");
