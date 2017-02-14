@@ -58,6 +58,9 @@
 			var ctx = canvas.getContext('2d');
 			var temp = <%= home %>;
 			var unity = "<%= unity %>";
+			if(unity != "°C"){
+				temp = (temp - 32) / 1.8;
+			}
 			var mercury_left = 237, mercury_level_0_deg = 237, one_deg_space = 4,
 				mercury_width = 17, mercury_down = 150;
 			make_base();
