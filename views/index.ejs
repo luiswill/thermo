@@ -29,13 +29,22 @@
 					}
 				</style>
 
-				<div id="outsideWeather">
-			
-					<div id="city"><%= weather.name%></div><br/>
-					<div id="weather_main"><%= weather.weather[0].main %></div></br>
-					<div id="outside_temp"><%= weather.main.temp %>°C</div> <br/>
-					<div id="outside-humidity"><%= weather.main.humidity %>% humidity</div>
+				<div id = "window">
+					<div id="citychange">
+						<form method="post" action = '/setCity'>
+							<input type="text" id="newcity" name="changeCity" placeholder="Write new city here" />
+							<button type="submit" onclick="setCity()"> Change city </button>
+						</form>
+					</div>
 
+					<div id="outsideWeather">
+
+						<div id="city"><%= weather.name%></div><br/>
+						<div id="weather_main"><%= weather.weather[0].main %></div></br>
+						<div id="outside_temp"><%= weather.main.temp %>°C</div> <br/>
+						<div id="outside-humidity"><%= weather.main.humidity %>% humidity</div>
+
+					</div>
 				</div>
 
 				<div id="homeTemp">

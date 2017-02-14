@@ -62,16 +62,23 @@ h1{
 	/*background-color: #E6E6FA;*/
 }
 
-#outsideWeather{
-	float: right;
-	width: 25%;
-	height: 250px;
-	text-align: center;
-	font-family: Helvetica;
-	padding-top: 20px;
-	color: white;
+ #window{
+	 float: right;
+	 width: 25%;
+ }
+
+ #citychange{
+	 margin-left: 15%;
+ }
+
+ #outsideWeather{
+	 height: 300px;
+	 text-align: center;
+	 font-family: Helvetica;
+	 padding-top: 20px;
+	 color: white;
 	 text-shadow: 2px 2px black;
-}
+ }
 
 #city{
 	font-size: 1.5em;

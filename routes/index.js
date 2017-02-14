@@ -70,6 +70,13 @@ function refresh(callThisFunction){
         });
     });
 }
+/**
+ * change the city which outside weather is displayed
+ */
+router.post('/setCity', function(req, res){
+    weatherAPI.setCity(req.body.changeCity);
+    res.redirect('/');
+});
 
 /**
  * Switch unity once from Fahrenheit to Celsius oder the other way, called with the button switch once
