@@ -1,14 +1,15 @@
 <div id="mySidebar" class="sidebar">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 	<form method="post" action = "/switch">
-		<button type="submit" class="change">Switch Once</button>
+		<button type="submit" class="change">zu °C/°F wechseln</button>
 	</form>
     <% if (user){ %>
     	<% if(user.isAdmin){ %>
 			<div id="divChangeTemp">
 				<form method="post" action="/update">
+					<hr />
 					<input type="number" max="40" min="0" name="changeTemp" id="inputNewTemp"></input></br>
-					<button type="submit" class="change">change Temperature</button>
+					<button type="submit" class="change">Temperatur ändern</button>
 				</form>
 			</div>
     	<% }%>

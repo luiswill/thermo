@@ -30,7 +30,7 @@ router.get('/', function(req, res, next){
     weatherAPI.getAllWeather(function(err, weatherJSON){ //update external weather
         refresh(function(err, temp){
 			einheit = "°C";
-            res.render('index', {title: "My Thermometer", home: temp, unity: einheit, weather: weatherJSON, user: req.user}); //update display
+            res.render('index', {title: "Startseite", home: temp, unity: einheit, weather: weatherJSON, user: req.user}); //update display
         });
     });
 });

@@ -1,10 +1,10 @@
-<span onclick="openNav()" id="openbtn">&#9776; open</span>
-<a href="/">Home</a>
+<span onclick="openNav()" id="openbtn">&#9776; Sidebar öffnen</span>
+<a href="/">Startseite</a>
 <% if (user){ %>
 
 	<span id="profile_links">
-		Welcome  <%= user.username %> !
-		<a href="/users/logout">Logout</a>
+		Wilkommen,  <%= user.username %> !
+		<a href="/users/logout">Ausloggen</a>
 	</span>
 
 
@@ -13,7 +13,7 @@
 
 <% }else{%>
 	<span id="profile_links">
-			<a href="/users/login">Sign in</a>
-			<a href="/users/signup">Sign Up</a>
+			<a href="/users/login">Login</a>
+			<a href="/users/signup">Registrieren</a>
 	</span>
 <% }%>

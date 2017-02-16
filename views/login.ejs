@@ -2,7 +2,7 @@
 <html lang = "en">
 <head>
 	<meta charset = "UTF-8">
-	<title>Passwort</title>
+	<title>Login</title>
 
 <link rel = "stylesheet" href = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
 integrity = ""
@@ -16,21 +16,21 @@ crossorigin = "anonymous">
 	<div class = "container" style = "margin-bottom : 100px">
 
 		<div class = "text-center reg_msg">
-			<h2 style ="color:#808080"><span>LOGIN</span></h2>
+			<h2 style ="color:#808080"><span>Login</span></h2>
 		</div><br>
-		
+
 		<div class = "row signup">
 		<form method="post" action="/users/login">
 		
 			<div class = "row form-group input_group">
 				<div class = "col-sm-12">
-					<input type="text" class="form-control" name="username" placeholder="Username">
+					<input type="text" class="form-control" name="username" placeholder="Benutzername">
 				</div>
 			</div>
 			
 			<div class = "row form-group input_group">
 				<div class = "col-sm-12">
-					<input type="password" class="form-control" name="password" placeholder="Password">
+					<input type="password" class="form-control" name="password" placeholder="Passwort">
 				</div>
 			</div>
 
@@ -38,14 +38,14 @@ crossorigin = "anonymous">
 			<div class = "row form-group">
 				<div class = "col-sm-12">
 					<input type = "submit" name = "submit" id = "sign-up" class = "form-control btn btn-primary"
-					value = "LOGIN">
+					value = "Login">
 				</div>
 			</div>
 		</div>
 		</form>
 		
 		<div class = "inscription">
-			<a href="/users/signup">Don't have an account ?  Sign up now</a>
+			<a href="/users/signup">Sie haben noch kein Account ? Sich registrieren</a>
 		</div>
 </body>
  

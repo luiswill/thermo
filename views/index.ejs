@@ -32,8 +32,8 @@
 				<div id = "window">
 					<div id="citychange">
 						<form method="post" action = '/setCity'>
-							<input type="text" id="newcity" name="changeCity" placeholder="Write new city here" />
-							<button type="submit" onclick="setCity()"> Change city </button>
+							<input type="text" id="newcity" name="changeCity" placeholder="Ort ?" />
+							<button type="submit" onclick="setCity()">Ort ändern</button>
 						</form>
 					</div></br>
 
@@ -49,13 +49,13 @@
 
 				<div id="homeTemp">
 		
-					<div id="homeTemp_header">Home Thermometer</div>
+					<div id="homeTemp_header">Heim Thermometer</div>
 			
 					<div id="currentTemp">
 						<canvas id="viewport"></canvas>
 						<div id="myTemp"><%= home %> <%= unity %></div>
 						<div id="getTemp">
-							<a href="/" id="loadData">Update Temperature</a>
+							<a href="/" id="loadData">Temperatur aktualisieren</a>
 						</div>
 				</div>
 			</div>
