@@ -124,6 +124,10 @@ h1{
 	float: right;
 }
 
+#citychange{
+	margin-left : auto;
+}
+
 .signup{
   text-align : center;
   width : 50%;
@@ -148,4 +152,14 @@ h1{
 .error{
   color : red;
   font-weight : bold;
+}
+
+.inscription{
+	font-size: 1.5em;
+	margin-left : 25%;
+}
+
+.inscris{
+	font-size: 1.5em;
+	margin-right : 62%;
 }
