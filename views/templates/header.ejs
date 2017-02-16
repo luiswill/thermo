@@ -1,6 +1,19 @@
 <span onclick="openNav()" id="openbtn">&#9776; open</span>
 <a href="/">Home</a>
-<span id="profile_links">
-	<a href="/users/login">Sign in</a>
-	<a href="/users/signup">Sign Up</a>
-</span>
+<% if (user){ %>
+
+	<span id="profile_links">
+		Welcome  <%= user.username %> !
+		<a href="/users/logout">Logout</a>
+	</span>
+
+
+
+
+
+<% }else{%>
+	<span id="profile_links">
+			<a href="/users/login">Sign in</a>
+			<a href="/users/signup">Sign Up</a>
+	</span>
+<% }%>

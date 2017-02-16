@@ -5,10 +5,14 @@
 	</form>
     <input type="button" name="change" class="change" value="want to change temp">
 	<hr />
-	<div id="divChangeTemp">
-	<form method="post" action="/update">
-		<input type="number" max="40" min="0" name="changeTemp" id="inputNewTemp"></input></br>
-		<button type="submit" class="change">change Temperature</button>
-	</form>
-	</div>
+    <% if (user){ %>
+    	<% if(user.isAdmin){ %>
+			<div id="divChangeTemp">
+				<form method="post" action="/update">
+					<input type="number" max="40" min="0" name="changeTemp" id="inputNewTemp"></input></br>
+					<button type="submit" class="change">change Temperature</button>
+				</form>
+			</div>
+    	<% }%>
+    <% }%>
 </div>
