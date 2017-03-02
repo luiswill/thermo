@@ -20,7 +20,6 @@ ORGANISATION:
 	WILLNAT Luis: 
 	------------
 	
-	Led the project,
 	Implementation of the Database (MongoDB), 
 	Temperature update, 
 	OpenWeather API (Weather from desired city) 
