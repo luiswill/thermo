@@ -23,7 +23,8 @@ INSTALLATION
 ------------
 
 Required :
-    - Node
+
+    - Node 
     - Mongo on your computer
 
 
@@ -32,10 +33,9 @@ Instructions to run :
 - Go in the folder where app.js is located and run :
     ```
         node app.js
-
     ```
 
-- Enjoy 
+- Enjoy 🎉
 
 
 
