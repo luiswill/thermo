@@ -1,4 +1,9 @@
-HOME THERMOMETER PROJECT
+PROJECT NAME
+----------------------
+ Thermo app
+
+
+DESCRIPTION
 ------------------------
 
 This project simulates a thermometer for your home.
@@ -14,12 +19,33 @@ You can also change the city you want to see the temperature of without being lo
 
 --------------------------------------------------------------------------------------------------------------------
 
+INSTALLATION
+------------
+
+Required :
+    - Node
+    - Mongo on your computer
+
+
+Instructions to run :
+- Run your mongo Database by typing
+- Go in the folder where app.js is located and run :
+    ```
+        node app.js
+
+    ```
+
+- Enjoy 
+
+
+
 ORGANISATION:
 ------------
 
 	WILLNAT Luis: 
 	------------
-	
+
+	Admin Page
 	Implementation of the Database (MongoDB), 
 	Temperature update, 
 	OpenWeather API (Weather from desired city) 
@@ -39,6 +65,7 @@ ORGANISATION:
 	Added humidity,
 	Change city (OpenWeather API),
 	Documentation
+	Temperature log in a CSV file
 	
 	GIANGRECO Christian & KLEIN Alexis:
 	----------------------------------

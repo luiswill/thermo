@@ -7,7 +7,8 @@ var flash = require('connect-flash');
 var session = require('express-session');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
-var mongo = require('mongodb');
+
+// Import mongo
 var mongoose = require('mongoose');
 
 mongoose.connect('mongodb://localhost/test');
@@ -73,7 +74,7 @@ app.use(function (req, res, next) {
 });
 
 
-
+//Set routing of website
 app.use('/', routes);
 app.use('/users', users);
 

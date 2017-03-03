@@ -35,15 +35,24 @@ router.get('/', function(req, res, next){
     });
 });
 
+
+/**
+ * when /adminPanel is called, render adminPanel view with title
+ */
 router.get('/adminPanel', ensureAuthenticated, function(req, res){
     res.render('adminPanel', {'title': 'Admin'})
 })
 
+
+/**
+ * Check if user is authenticated : ok. continue programm
+ * Otherwise  redirect to login Page
+ */
 function ensureAuthenticated(req, res, next){
     if(req.isAuthenticated()){
         return next();
     } else {
-        //req.flash('error_msg','You are not logged in');
+
         res.redirect('/users/login');
     }
 }
@@ -70,6 +79,8 @@ function refresh(callThisFunction){
         });
     });
 }
+
+
 /**
  * change the city which outside weather is displayed
  */

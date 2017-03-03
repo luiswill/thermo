@@ -21,40 +21,23 @@ router.post('/signup', function(req, res){
 	var email = req.body.email;
 	var username = req.body.username;
 	var password = req.body.password;
-	var password2 = req.body.password2;
 
-	// Validation
-	req.checkBody('name', 'Name is required').notEmpty();
-	req.checkBody('email', 'Email is required').notEmpty();
-	req.checkBody('email', 'Email is not valid').isEmail();
-	req.checkBody('username', 'Username is required').notEmpty();
-	req.checkBody('password', 'Password is required').notEmpty();
-	req.checkBody('password2', 'Passwords do not match').equals(req.body.password);
 
-	var errors = req.validationErrors();
+	var newUser = new User({
+		name: name,
+		email:email,
+		username: username,
+		password: password,
+		isAdmin: false
+	});
 
-	if(errors){
-		res.render('signup',{
-			errors:errors
-		});
-	} else {
-		var newUser = new User({
-			name: name,
-			email:email,
-			username: username,
-			password: password,
-            isAdmin: false
-		});
+	User.createUser(newUser, function(err, user){
+		if(err) throw err;
+		console.log(user);
+	});
 
-		User.createUser(newUser, function(err, user){
-			if(err) throw err;
-			console.log(user);
-		});
+	res.redirect('/users/login');
 
-		req.flash('success_msg', 'Sie sind jetzt registriert und können sich einloggen.');
-
-		res.redirect('/users/login');
-	}
 });
 
 passport.use(new LocalStrategy(
@@ -62,7 +45,7 @@ passport.use(new LocalStrategy(
    User.getUserByUsername(username, function(err, user){
    	if(err) throw err;
    	if(!user){
-   		return done(null, false, {message: 'Unbekannter Benutzer'});
+   		return done(null, false);
    	}
 
    	User.comparePassword(password, user.password, function(err, isMatch){
@@ -70,7 +53,7 @@ passport.use(new LocalStrategy(
    		if(isMatch){
    			return done(null, user);
    		} else {
-   			return done(null, false, {message: 'Ungültiges passwort'});
+   			return done(null, false);
    		}
    	});
    });
@@ -94,8 +77,6 @@ router.post('/login',
 
 router.get('/logout', function(req, res){
 	req.logout();
-
-	req.flash('success_msg', 'Sie sind ausgeloggt.');
 
 	res.redirect('/');
 });
