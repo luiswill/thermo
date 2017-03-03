@@ -32,7 +32,7 @@ Instructions to run :
 - Run your mongo Database by typing
 - Go in the folder where app.js is located and run :
     ```
-        node app.js
+    node app.js
     ```
 
 - Enjoy 🎉
