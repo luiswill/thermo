@@ -29,11 +29,14 @@ Required :
 
 
 Instructions to run :
-- Run your mongo Database by typing
+- Run your mongo Database by clicking on the mongod.exe file in the folder C:\Program Files\MongoDB\Server\3.4\bin
 - Go in the folder where app.js is located and run :
     ```
     node app.js
     ```
+  OR
+  
+ -If you are using Webstorm, open the project in Webstorm and click on the run button on the top right next to where is written              "bin\www"
 
 - Enjoy 🎉
 
